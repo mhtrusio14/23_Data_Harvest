@@ -1,5 +1,3 @@
-# TODO: Make Faster, at the end format col F as plain text
-
 import requests
 import gspread
 from bs4 import BeautifulSoup
