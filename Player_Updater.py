@@ -1,6 +1,3 @@
-# ~ 4-5 mins per run
-# TODO: Make faster, hide creds
-
 import gspread
 import requests
 from bs4 import BeautifulSoup
