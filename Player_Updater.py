@@ -14,7 +14,8 @@ import os
 start_time = time.time()
 
 # ENV Variables
-CREDS = os.environ['CREDS']
+creds_json = os.environ['CREDS']
+CREDS = json.loads(creds_json)
 SHEET_NAME = os.environ['SHEET_NAME']
 API_URL = os.environ['API_URL']
 SCRAPE_URL = os.environ['SCRAPE_URL']
