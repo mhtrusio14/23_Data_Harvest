@@ -2,7 +2,7 @@ name: run Prices_Updater.py
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # runs every 5 mins
+    - cron: '*/7 * * * *' # runs every 5 mins
 
 jobs:
   build:
