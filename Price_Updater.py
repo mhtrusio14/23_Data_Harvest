@@ -27,19 +27,15 @@ data = worksheet.get_all_values()
 for row in data:
   IDs.append(row[6])
   
-IDs.pop(0)
 
 IDsSnip = []
 starting_point = 2
-append_counter = 0
+append_counter = 1
 iteration_counter = 1
 fields_to_keep = ["externalId", "price"]
 
 while True:
-  if append_counter == len(IDs):
-    break
-  
-  if iteration_counter % 100 == 1 and iteration_counter != 1 or append_counter == len(IDs) - 1:
+  if iteration_counter % 100 == 1 and iteration_counter != 1 or append_counter == len(IDs):
     base_url = base_url[:-3]
     api_call = requests.get(base_url)
     api_json = api_call.json()
@@ -75,6 +71,9 @@ while True:
     new_list_xb.clear()
     base_url = os.environ['API_URL']
     starting_point = iteration_counter + 1
+  
+  if append_counter == len(IDs):
+    break
   
   IDsSnip.append(IDs[append_counter])
   base_url += IDs[append_counter] + "%2C"
