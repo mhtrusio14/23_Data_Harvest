@@ -44,21 +44,35 @@ while True:
     api_call = requests.get(base_url)
     api_json = api_call.json()
     response = api_json['data']
-    new_list = [{'externalId': d['externalId'], 'price': d['price']['playstation-4']} for d in response]
-    sorted_array = sorted(new_list, key=lambda x: IDsSnip.index(str(x['externalId'])))
-    price_range = "F" + str(starting_point) + ":" + "F" + str(iteration_counter)
-    cell_list = worksheet.range(price_range)
-    for cell, i in zip(cell_list, sorted_array):
+    new_list_ps = [{'externalId': d['externalId'], 'price': d['price']['playstation-4']} for d in response]
+    new_list_xb = [{'externalId': d['externalId'], 'price': d['price']['xbox-one']} for d in response]
+    sorted_array_ps = sorted(new_list_ps, key=lambda x: IDsSnip.index(str(x['externalId'])))
+    sorted_array_xb = sorted(new_list_xb, key=lambda x: IDsSnip.index(str(x['externalId'])))
+    price_range_ps = "F" + str(starting_point) + ":" + "F" + str(iteration_counter)
+    price_range_xb = "M" + str(starting_point) + ":" + "M" + str(iteration_counter)
+    cell_list_ps = worksheet.range(price_range_ps)
+    for cell, i in zip(cell_list_ps, sorted_array_ps):
       if i['price'] is None or i['price'] == "None":
         cell.value = ""
       elif type(i['price']) == str:
         cell.value = int(i['price'])
       else:
         cell.value = i['price']
-    worksheet.update_cells(cell_list)
+    worksheet.update_cells(cell_list_ps)
+    cell_list_xb = worksheet.range(price_range_xb)
+    for cell, i in zip(cell_list_xb, sorted_array_xb):
+      if i['price'] is None or i['price'] == "None":
+        cell.value = ""
+      elif type(i['price']) == str:
+        cell.value = int(i['price'])
+      else:
+        cell.value = i['price']
+    worksheet.update_cells(cell_list_xb)
     IDsSnip.clear()
-    sorted_array.clear()
-    new_list.clear()
+    sorted_array_ps.clear()
+    sorted_array_xb.clear()
+    new_list_ps.clear()
+    new_list_xb.clear()
     base_url = os.environ['API_URL']
     starting_point = iteration_counter + 1
   
